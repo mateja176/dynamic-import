@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>Load</button>
+    <button>Group</button>
+    <script>
+      // @ts-check
+      document
+        .querySelector('button:nth-child(1)')
+        ?.addEventListener('click', () => {
+          import('./module.js').then((module) => {
+            console.log('module loaded');
+          });
+        });
+      const people = [
+        { name: 'John', age: 21 },
+        { name: 'Jane', age: 19 },
+        { name: 'Jack', age: 17 },
+      ];
+      document
+        .querySelector('button:nth-child(2)')
+        ?.addEventListener('click', () => {
+          import('https://cdn.jsdelivr.net/npm/lodash-es@4.17.21/+esm').then(
+            (module) => {
+              console.log(
+                module.groupBy(people, (person) =>
+                  person.age >= 18 ? 'adult' : 'minor',
+                ),
+              );
+            },
+          );
+        });
+    </script>
+  </body>
+</html>
